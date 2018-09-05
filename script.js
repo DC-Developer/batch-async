@@ -1,3 +1,4 @@
+//NOTE: this file is purely for testing the codebase.
 let _ba = require('./lib/batch-async.js');
 let records = require('./lib/records.js'),
     peopleRecords = require('./lib/people.js');
