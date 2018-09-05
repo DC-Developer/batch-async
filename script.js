@@ -9,21 +9,18 @@ let records = require('./lib/records.js'),
 _ba({
   transactions: [
     {
-      batchQuery: true,
       statementType: 'INSERT',
       table: 'pet',
       columns: ['name', 'owner', 'species', 'sex'],
       values: records
     },
     {
-      batchQuery: true,
       statementType: 'INSERT',
       table: 'people',
       columns: ['name', 'age', 'occupation', 'sex'],
       values: peopleRecords
     },
     {
-      batchQuery: true,
       statementType: 'UPDATE',
       table: 'people',
       columns: ['name', 'age', 'occupation', 'sex'],
