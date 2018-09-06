@@ -2,7 +2,8 @@
 let _ba = require('./lib/batch-async.js');
 let records = require('./lib/records.js'),
     peopleRecords = require('./lib/people.js'),
-    updatePeople= require('./lib/updateTest.js');
+    updatePeople= require('./lib/updateTest.js'),
+    customUpdate= require('./lib/customUpdate.js');
 
 //add the ability to let users input the properties they want parsed
 //from the json object, add normalization to the data, then insert it
@@ -26,6 +27,20 @@ _ba({
       columns: ['name', 'age', 'occupation', 'sex'],
       values: updatePeople,
       columnIdentifier: 'name'
+    },
+    {
+      statementType: 'CUSTOM',
+      columns: ['Old Greggy', 'Comedian Actor'],
+      values: customUpdate,
+      customStatement: `
+        UPDATE people
+        SET
+        name = ?, occupation = ?
+        WHERE
+        name = ?
+        AND
+        occupation = ?
+        `
     }
   ]
 }, function(err, response) {
