@@ -1,3 +1,3 @@
 # batch-async
 
-Handy little library for handling mutliple asynchronous batch mysql transactions
+Handy little library for handling multiple asynchronous batch MySql transactions
