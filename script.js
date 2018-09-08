@@ -1,38 +1,36 @@
 //NOTE: this file is purely for testing the codebase.
 let _ba = require('./lib/batch-async.js');
-let records = require('./lib/records.js'),
-    peopleRecords = require('./lib/people.js'),
-    updatePeople= require('./lib/updateTest.js'),
-    customUpdate= require('./lib/customUpdate.js');
+let connection = require('./connection.js');
+let records = require('./mock-data/pets.js'),
+    peopleRecords = require('./mock-data/people.js'),
+    updatePeople = require('./mock-data/updateTest.js'),
+    customUpdate = require('./mock-data/customUpdate.js');
 
-//add the ability to let users input the properties they want parsed
-//from the json object, add normalization to the data, then insert it
 _ba({
   transactions: [
     {
-      statementType: 'INSERT',
-      table: 'pet',
-      columns: ['name', 'owner', 'species', 'sex'],
-      values: records
+      values: records,
+      sqlStatement:`
+        INSERT INTO
+        pet
+        (name, owner, species, sex)
+        VALUES
+        (?, ?, ?, ?)
+      `
     },
     {
-      statementType: 'INSERT',
-      table: 'people',
-      columns: ['name', 'age', 'occupation', 'sex'],
-      values: peopleRecords
+      values: peopleRecords,
+      sqlStatement: `
+        INSERT INTO
+        people
+        (name, age, occupation, sex)
+        VALUES
+        (?, ?, ?, ?)
+      `
     },
     {
-      statementType: 'UPDATE',
-      table: 'people',
-      columns: ['name', 'age', 'occupation', 'sex'],
-      values: updatePeople,
-      columnIdentifier: 'name'
-    },
-    {
-      statementType: 'CUSTOM',
-      columns: ['Old Greggy', 'Comedian Actor'],
       values: customUpdate,
-      customStatement: `
+      sqlStatement: `
         UPDATE people
         SET
         name = ?, occupation = ?
@@ -43,9 +41,11 @@ _ba({
         `
     }
   ]
-}, function(err, response) {
+},
+  connection,
+  function(err, response) {
   if(err) {
     console.log(err);
   }
   console.log(response);
-})
+});
