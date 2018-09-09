@@ -2,9 +2,9 @@
 let _ba = require('./lib/batch-async.js');
 let connection = require('./connection.js');
 let records = require('./mock-data/pets.js'),
-    peopleRecords = require('./mock-data/people.js'),
-    updatePeople = require('./mock-data/updateTest.js'),
-    customUpdate = require('./mock-data/customUpdate.js');
+let peopleRecords = require('./mock-data/people.js'),
+let updatePeople = require('./mock-data/updateTest.js'),
+let customUpdate = require('./mock-data/customUpdate.js');
 
 _ba({
   transactions: [
